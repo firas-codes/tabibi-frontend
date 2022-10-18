@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-const url = "http://localhost:5000/api/v1/region/delegation";
+const url = "https://tabibi-backend.herokuapp.com/api/v1/region/delegation";
 
 const SingleGovernorate = () => {
   const { id, name } = useParams();

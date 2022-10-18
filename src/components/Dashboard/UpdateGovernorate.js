@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-const delegurl = "http://localhost:5000/api/v1/region/delegation";
+const delegurl = "https://tabibi-backend.herokuapp.com/api/v1/region/delegation";
 // const govurl = "http://localhost:5000/api/v1/region/governorat";
 
 function UpdateGovernorate() {
