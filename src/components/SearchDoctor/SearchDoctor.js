@@ -1,7 +1,46 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 
-const SearchDoctor = ({governorates}) => {
+const SearchDoctor = ({ governorates }) => {
   console.log(governorates);
+  const url = "https://tabibi-backend.herokuapp.com/api/v1/region/delegation";
+  const [selectedGov, setSelectedGov] = useState(null);
+  const [govDelegations, setGovDelegations] = useState(null);
+
+  const fetchDelegations = async () => {
+    let headers = new Headers();
+
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    headers.append("Origin", "http://localhost:3000");
+    headers.append("Access-Control-Allow-Origin", "http://localhost:3000");
+    headers.append("Access-Control-Allow-Credentials", "true");
+    try {
+      const response = await fetch(url, {
+        mode: "cors",
+        method: "GET",
+        headers: headers,
+      });
+      const data = await response.json();
+      const { delegations } = data;
+
+      if (delegations) {
+        const newDelegations = delegations.filter(
+          (delegation) => delegation.governorateId === selectedGov
+        );
+        setGovDelegations(newDelegations);
+      } else {
+        setGovDelegations([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDelegations();
+  }, [selectedGov]);
   return (
     <>
       <div className="banner-container" id="searchform">
@@ -69,48 +108,31 @@ const SearchDoctor = ({governorates}) => {
                         name="gouvernorat"
                         id="gouvernorat"
                         className="search__doc-speciality"
+                        onChange={(e) => setSelectedGov(e.target.value)}
                       >
-                      {governorates.map((governorates,index)=>(
-                        <option key={index} value={governorates.govid}>{governorates.governorateName}</option>
-                      ))}
-
-                        {/* <option value="gouvernorat">--Gouvernorat--</option>
-                      <option value="2">Ariana</option>
-                      <option value="3">Ben Arous</option>
-                      <option value="4">Mannouba</option>
-                      <option value="5">Tunis</option>
-                      <option value="6">Bizerte</option>
-                      <option value="7">Beja</option>
-                      <option value="8">Nabeul</option>
-                      <option value="9">Sousse</option>
-                      <option value="10">Sfax</option>
-                      <option value="13">Gabes</option>
-                      <option value="14">Gafsa</option>
-                      <option value="15">Kairouan</option>
-                      <option value="16">Jendouba</option>
-                      <option value="17">Tozeur</option>
-                      <option value="18">Kasserine</option>
-                      <option value="19">Le Kef</option>
-                      <option value="21">Mounastir</option>
-                      <option value="22">Sidi Bouzid</option>
-                      <option value="23">Siliana</option>
-                      <option value="24">Tataouine</option>
-                      <option value="25">Zaghouan</option>
-                      <option value="26">Medenine</option>
-                      <option value="27">Mahdia</option>
-                      <option value="28">Kebili</option>
-                      <option value="29">grombalia</option>
-                      <option value="30">grombalia</option> */}
+                        {governorates.map((governorates, index) => (
+                          <option key={index} value={governorates.govid}>
+                            {governorates.governorateName}
+                          </option>
+                        ))}
+                        {console.log("selected gov", selectedGov)}
+                        {console.log("selected govdelegation", govDelegations)}
                       </select>
 
                       <select
                         name="ville"
                         id="ville"
-                        data-tags="false"
-                        data-placeholder="Délegation"
                         className="search__doc-speciality"
                       >
-                        <option value="delegation">--Délègation--</option>
+                        {selectedGov ? (
+                          govDelegations?.map((delegation, index) => (
+                            <option key={index} value={delegation._id}>
+                              {delegation.delegationName}
+                            </option>
+                          ))
+                        ) : (
+                          <option value="Delegation">Delegation</option>
+                        )}
                       </select>
 
                       <input

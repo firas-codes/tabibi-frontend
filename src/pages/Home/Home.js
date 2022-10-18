@@ -49,7 +49,6 @@ const Home = () => {
   }, []);
   return (
     <div>
-      {console.log(governorates)}
       <SearchDoctor governorates={governorates}/>
       <RecommondationDoc />
       <OurDoctor />
