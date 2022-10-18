@@ -1,0 +1,34 @@
+header {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    margin-top: 1rem !important;
+}
+
+ul {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+
+
+
+/* --------- MEDIA QUERIES (MEDIUM DEVICES) ---------- */
+@media screen and (max-width: 1024px) {
+    header {
+        display: flex;
+        flex-direction: column;
+    }
+    .logo {
+        text-align: center;
+    }
+   
+}
+
+/* --------- MEDIA QUERIES (SMALL DEVICES) ---------- */
+@media screen and (max-width: 600px) {
+    
+
+}
