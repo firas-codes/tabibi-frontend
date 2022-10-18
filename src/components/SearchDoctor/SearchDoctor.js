@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const SearchDoctor = () => {
-
+const SearchDoctor = ({governorates}) => {
+  console.log(governorates);
   return (
     <>
       <div className="banner-container" id="searchform">
@@ -69,10 +69,10 @@ const SearchDoctor = () => {
                         name="gouvernorat"
                         id="gouvernorat"
                         className="search__doc-speciality"
-                        data-tags="false"
-                        required=""
                       >
-                      
+                      {governorates.map((governorates,index)=>(
+                        <option key={index} value={governorates.govid}>{governorates.governorateName}</option>
+                      ))}
 
                         {/* <option value="gouvernorat">--Gouvernorat--</option>
                       <option value="2">Ariana</option>

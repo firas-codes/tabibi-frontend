@@ -50,7 +50,7 @@ const Home = () => {
   return (
     <div>
       {console.log(governorates)}
-      <SearchDoctor />
+      <SearchDoctor governorates={governorates}/>
       <RecommondationDoc />
       <OurDoctor />
       <Quote />
