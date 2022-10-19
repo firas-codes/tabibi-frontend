@@ -8,7 +8,7 @@ const SearchDoctor = ({ governorates }) => {
   const [selectedGov, setSelectedGov] = useState(null);
   const [selectedDel, setSelectedDel] = useState(null);
   const [govDelegations, setGovDelegations] = useState(null);
-  
+
   const fetchDelegations = async () => {
     let headers = new Headers();
 
@@ -84,7 +84,7 @@ const SearchDoctor = ({ governorates }) => {
                         name="searchCategory_text"
                         required=""
                       >
-                       <option value="specialite">--Spécialité--</option>
+                        <option value="specialite">--Spécialité--</option>
                       </select>
                       <select
                         name="gouvernorat"
@@ -108,15 +108,12 @@ const SearchDoctor = ({ governorates }) => {
                         className="search__doc-speciality"
                         onChange={(e) => setSelectedDel(e.target.value)}
                       >
-                        {selectedGov ? (
-                          govDelegations?.map((delegation, index) => (
-                            <option key={index} value={delegation._id}>
-                              {delegation.delegationName}
-                            </option>
-                          ))
-                        ) : (
-                          <option value="Delegation">--Délégation--</option>
-                        )}
+                        <option value="Delegation">--Délégation--</option>
+                        {govDelegations?.map((delegation, index) => (
+                          <option key={index} value={delegation._id}>
+                            {delegation.delegationName}
+                          </option>
+                        ))}
                       </select>
 
                       <button type="submit">rechercher</button>
