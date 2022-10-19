@@ -9,6 +9,8 @@ import { useEffect } from "react";
 
 const Home = () => {
   const url = "https://tabibi-backend.herokuapp.com/api/v1/region/governorat";
+  const urldev = "http://localhost:5000/api/v1/region/governorat";
+  
   const [governorates, setGovernorates] = useState([]);
 
   const fetchGovernorates = async () => {

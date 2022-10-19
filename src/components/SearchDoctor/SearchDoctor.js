@@ -6,8 +6,9 @@ const SearchDoctor = ({ governorates }) => {
   console.log(governorates);
   const url = "https://tabibi-backend.herokuapp.com/api/v1/region/delegation";
   const [selectedGov, setSelectedGov] = useState(null);
+  const [selectedDel, setSelectedDel] = useState(null);
   const [govDelegations, setGovDelegations] = useState(null);
-
+  
   const fetchDelegations = async () => {
     let headers = new Headers();
 
@@ -38,6 +39,12 @@ const SearchDoctor = ({ governorates }) => {
     }
   };
 
+  const searchDoctor = async (e) => {
+    e.preventDefault();
+    console.log("selectedGov", selectedGov);
+    console.log("selectedDel", selectedDel);
+  };
+
   useEffect(() => {
     fetchDelegations();
   }, [selectedGov]);
@@ -66,6 +73,7 @@ const SearchDoctor = ({ governorates }) => {
                   id="doctorSearchForm1"
                   className="search-form f--search search-form--selected"
                   name="doctorSearchForm1"
+                  onSubmit={searchDoctor}
                 >
                   <div className="form-groups form-group__doc-speciality">
                     <div className="form-group f-blue-select">
@@ -76,33 +84,7 @@ const SearchDoctor = ({ governorates }) => {
                         name="searchCategory_text"
                         required=""
                       >
-                        <optgroup value="0" label="">
-                          <option value="8">Dentiste</option>
-                          <option value="9">Ophtalmologiste</option>
-                          <option value="10">Médecine Générale</option>
-                          <option value="11">Gynécologue</option>
-                          <option value="12">ORL</option>
-                          <option value="13">Dermatologue</option>
-                          <option value="14">Pédiatre</option>
-                          <option value="15">physiotherapeute</option>
-                          <option value="26">Cardiologue</option>
-                          <option value="34">Gastro-entérologue</option>
-                          <option value="35">psychiatre</option>
-                          <option value="38">Chirurgien orthopédiste</option>
-                          <option value="40">Cancérologue</option>
-                          <option value="68">Orthophoniste</option>
-                          <option value="70">Orthopédiste</option>
-                          <option value="72">Radiologue</option>
-                          <option value="74">Angiologue</option>
-                          <option value="75">Orthodontiste</option>
-                          <option value="76">Chirurgien Urologue</option>
-                          <option value="77">Neurologue </option>
-                          <option value="79">Hématologie</option>
-                          <option value="81">Nutritionniste</option>
-                          <option value="82">Pneumologie - Allergologie</option>
-                          <option value="83">Chirurgie Générale</option>
-                          <option value="84">Rhumatologue</option>
-                        </optgroup>
+                       <option value="specialite">--Spécialité--</option>
                       </select>
                       <select
                         name="gouvernorat"
@@ -110,6 +92,7 @@ const SearchDoctor = ({ governorates }) => {
                         className="search__doc-speciality"
                         onChange={(e) => setSelectedGov(e.target.value)}
                       >
+                        <option value="gouvernorat">--Gouvernorat--</option>
                         {governorates.map((governorates, index) => (
                           <option key={index} value={governorates.govid}>
                             {governorates.governorateName}
@@ -123,6 +106,7 @@ const SearchDoctor = ({ governorates }) => {
                         name="ville"
                         id="ville"
                         className="search__doc-speciality"
+                        onChange={(e) => setSelectedDel(e.target.value)}
                       >
                         {selectedGov ? (
                           govDelegations?.map((delegation, index) => (
@@ -131,16 +115,11 @@ const SearchDoctor = ({ governorates }) => {
                             </option>
                           ))
                         ) : (
-                          <option value="Delegation">Delegation</option>
+                          <option value="Delegation">--Délégation--</option>
                         )}
                       </select>
 
-                      <input
-                        type="submit"
-                        className="btn btn-validate"
-                        value="Rechercher"
-                        name="valider"
-                      />
+                      <button type="submit">rechercher</button>
                     </div>
                   </div>
                 </form>
